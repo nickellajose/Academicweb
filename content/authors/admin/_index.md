@@ -16,7 +16,7 @@ interests:
 - Machine Learning
 - Agent Based Modelling
 - Social Networks Analytics
-
+- Decision Making
 last_name: Jose
 organizations:
 - name: 
