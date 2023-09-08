@@ -1,6 +1,5 @@
 ---
-bio: My research interests include distributed robotics, mobile computing and programmable
-  matter.
+
 education:
   courses:
   - course: MSc Computational Social Science
@@ -20,7 +19,7 @@ interests:
 last_name: Jose
 organizations:
 - name: 
-  url: https://www.stanford.edu/
+  url: 
 role: Msc Computational Social Science
 social:
 - icon: envelope
@@ -50,5 +49,5 @@ superuser: true
 title: Nickella Jose
 ---
 
-Nickella Jose is a recent graduate in Computational Social Science from Linköping University.Her research interests include Machine learning for predictions and classification, Neighborhood effects and social influence  ,social media analytics. She has worked on projects that utilised both register and big data.
+I am recent graduate in Computational Social Science from Linköping University. My research interests include Machine learning for predictions and classification, Neighborhood effects and social influence and social media analytics. I have worked on projects that utilised both register and big data.
 {style="text-align: justify;"}

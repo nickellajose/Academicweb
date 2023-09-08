@@ -10,18 +10,18 @@ sections:
 - block: features
   content:
     items:
-    - description: 90%
+    - description: 
       icon: r-project
       icon_pack: fab
       name: R
-    - description: 100%
-      icon: chart-line
+    - description: 
+      icon: database
       icon_pack: fas
-      name: Statistics
-    - description: 10%
-      icon: camera-retro
+      name: SQL
+    - description: 
+      icon: q
       icon_pack: fas
-      name: Photography
+      name: QGIS
     title: Skills
 - block: experience
   content:
@@ -174,28 +174,28 @@ sections:
 - block: contact
   content:
     address:
-      city: Stanford
-      country: United States
-      country_code: US
-      postcode: "94305"
-      region: CA
-      street: 450 Serra Mall
-    appointment_url: https://calendly.com
+      city: 
+      country: 
+      country_code: 
+      postcode: 
+      region: Sweden
+      street: Uppsala
+    appointment_url: 
     autolink: true
     contact_links:
-    - icon: twitter
+    - icon: 
       icon_pack: fab
-      link: https://twitter.com/Twitter
-      name: DM Me
-    - icon: skype
+      link: 
+      name: 
+    - icon: 
       icon_pack: fab
-      link: skype:echo123?call
-      name: Skype Me
-    - icon: video
+      link: 
+      name: 
+    - icon: 
       icon_pack: fas
-      link: https://zoom.com
-      name: Zoom Me
-    directions: Enter Building 1 and take the stairs to Office 200 on Floor 2
+      link: 
+      name: 
+    directions: 
     email: test@example.org
     form:
       formspree:
@@ -204,12 +204,10 @@ sections:
         captcha: false
       provider: netlify
     office_hours:
-    - Monday 10:00 to 13:00
-    - Wednesday 09:00 to 10:00
-    phone: 888 888 88 88
+    
+    phone: 
     subtitle: null
-    text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mi diam, venenatis
-      ut magna et, vehicula efficitur enim.
+    text: 
     title: Contact
   design:
     columns: "2"
