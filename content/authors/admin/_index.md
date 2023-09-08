@@ -40,7 +40,7 @@ social:
   link: https://github.com/nickellajose
 - icon: linkedin
   icon_pack: fab
-  link: www.linkedin.com/in/nickella-jose-7340a8228
+  link: https://www.linkedin.com/in/nickella-jose-7340a8228
 - icon: cv
   icon_pack: ai
   link: uploads/resume.pdf
