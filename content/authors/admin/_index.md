@@ -27,13 +27,6 @@ social:
   link: /#contact
 - display:
     header: true
-  icon: twitter
-  icon_pack: fab
-  label: Follow me on Twitter
-  link: 
-- icon: graduation-cap
-  icon_pack: fas
-  link: 
 - icon: github
   icon_pack: fab
   link: https://github.com/nickellajose
