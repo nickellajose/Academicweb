@@ -44,29 +44,26 @@ sections:
   id: projects
 - block: collection
   content:
+    count: 5
     filters:
-      featured_only: true
+      author: ""
+      category: ""
+      exclude_featured: false
+      exclude_future: false
+      exclude_past: false
       folders:
-      - publication
-    title: Featured Publications
+      - post
+      publication_type: ""
+      tag: ""
+    offset: 0
+    order: desc
+    subtitle: ""
+    text: ""
+    title: Recent Posts
   design:
     columns: "2"
-    view: card
-  id: featured
-- block: collection
-  content:
-    filters:
-      exclude_featured: true
-      folders:
-      - publication
-    text: |-
-      {{% callout note %}}
-      Quickly discover relevant content by [filtering publications](./publication/).
-      {{% /callout %}}
-    title: Recent Publications
-  design:
-    columns: "2"
-    view: citation
+    view: compact
+  id: posts
 - block: contact
   content:
     address:
