@@ -3,27 +3,25 @@ bio: My research interests include distributed robotics, mobile computing and pr
   matter.
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+  - course: MSc Computational Social Science
+    institution: Linköping University
+    year: 2023
+  - course: BA in Sociology
+    institution: The Open University 
+    year: 2021
 email: ""
-first_name: Alice
+first_name: Nickella
 highlight_name: true
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
-last_name: Wu
+- Machine Learning
+- Agent Based Modelling
+- Social Networks Analytics
+
+last_name: Jose
 organizations:
-- name: Stanford University
+- name: 
   url: https://www.stanford.edu/
-role: Professor of Artificial Intelligence
+role: Msc Computational Social Science
 social:
 - icon: envelope
   icon_pack: fas
@@ -33,24 +31,24 @@ social:
   icon: twitter
   icon_pack: fab
   label: Follow me on Twitter
-  link: https://twitter.com/GeorgeCushen
+  link: 
 - icon: graduation-cap
   icon_pack: fas
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: 
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/nickellajose
 - icon: linkedin
   icon_pack: fab
-  link: https://www.linkedin.com/
+  link: www.linkedin.com/in/nickella-jose-7340a8228
 - icon: cv
   icon_pack: ai
   link: uploads/resume.pdf
 status:
   icon: ☕️
 superuser: true
-title: Alice Wu 吳恩達
+title: Nickella Jose
 ---
 
-Alice Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Nickella Jose is a recent graduate in Computational Social Science from Linköping University.Her research interests include Machine learning for predictions and classification, Neighborhood effects and social influence  ,social media analytics. She has worked on projects that utilised both register and big data.
 {style="text-align: justify;"}
