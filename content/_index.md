@@ -45,7 +45,18 @@ sections:
 - block: collection
   content:
     filters:
-      exclude_featured: false
+      featured_only: true
+      folders:
+      - publication
+    title: Featured Publications
+  design:
+    columns: "2"
+    view: card
+  id: featured
+- block: collection
+  content:
+    filters:
+      exclude_featured: true
       folders:
       - publication
     text: |-
