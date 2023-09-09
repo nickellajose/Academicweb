@@ -42,5 +42,5 @@ superuser: true
 title: Nickella Jose
 ---
 
-I am recent graduate in Computational Social Science from Linköping University. My research interests include Machine learning for predictions and classification, Neighborhood effects and social influence and social media analytics. I have worked on projects that utilised both register and big data.
+I have an MSc in Computational Social Science from Linköping University. My research interests include Machine learning for predictions and classification, Neighborhood effects and social influence and social media analytics. I have worked on projects that utilised both register and big data.
 {style="text-align: justify;"}
