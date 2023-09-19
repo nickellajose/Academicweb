@@ -6,8 +6,8 @@ check_gitignore()
 check_content()
 hugo_version()
 serve_site()
- gitcreds::gitcreds_set()
 
- stop_server()
+
+
  
  
