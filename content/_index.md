@@ -23,23 +23,6 @@ sections:
       icon_pack: fas
       name: QGIS 
     title: Skills
-- block: portfolio
-  content:
-    buttons:
-    - name: R
-      tag: R
-    - name: QGIS
-      tag: QGIS
-    default_button_index: 0
-    filters:
-      folders:
-      - project
-    title: Projects
-  design:
-    columns: "1"
-    flip_alt_rows: false
-    view: showcase
-  id: projects
 - block: collection
   content:
     count: 5

@@ -9,7 +9,7 @@ tags:
   - R
 subtitle: ''
 summary: ''
-authors: [Nickella jose]
+authors: [Nickella Jose]
 lastmod: '2023-09-15T14:44:09+02:00'
 featured: no
 image:
