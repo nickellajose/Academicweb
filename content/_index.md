@@ -26,8 +26,6 @@ sections:
 - block: portfolio
   content:
     buttons:
-    - name: All
-      tag: '*'
     - name: R
       tag: R
     - name: QGIS
