@@ -1,0 +1,196 @@
+---
+title: Spotify
+author: Nickella Jose
+date: '2023-09-15'
+slug: spotify
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: [Nickella jose]
+lastmod: '2023-09-15T14:44:09+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r, include=FALSE}
+library(ggplot2)
+library(data.table)
+library(tidyverse)
+library(dplyr)
+library(RColorBrewer)
+library(wordcloud2)
+library(wordcloud)
+library(tm)
+library(scales)
+options(scipen = 999)
+
+
+spoty<-read.csv("C:/Users/nicke/OneDrive/Documents/Website_proj/MyWebsite2/Data_For_Blog/spotify-2023.csv")
+
+spotify_songs2020 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv')
+
+spoty_2023<- spoty %>%  filter(released_year==2023) 
+spoty_2023$streams<- as.integer(spoty_2023$streams)
+  
+
+glimpse(spoty_2023)
+
+table(spoty_2023$released_month)
+```
+
+```{r, include =FALSE}
+
+#Top Streaming Artists 2023
+most_streams<- spoty_2023 %>% top_n(10,wt=streams) 
+most_streams$artist.s._name<-as.factor(most_streams$artist.s._name)
+
+
+
+```
+
+The artists of the top 10 streamed songs on Spotify.These top 10 songs were released between January and April which most likely also affects the number of streams they receive. 
+The number one streamed song was released in January while the other top 4 songs were all released in February. 
+```{r,echo=FALSE}
+library(scales)
+
+most_streams%>% 
+  ggplot()+
+  geom_bar(aes(x=reorder(artist.s._name,streams),y=streams, fill=artist.s._name),
+           stat = "identity", show.legend = FALSE)+ scale_fill_brewer(palette = "Set3")+
+  coord_flip()+labs(title = "To 10 Streamed Artistis on Spotify in 2023", x="Artists", y="Number of Streams")+ scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()), 
+                                                                                                                                 breaks = seq(0,15e+08,2e+8), limits=c(0,15e+08))
+
+
+
+most_streams%>% 
+  ggplot()+
+  geom_bar(aes(x=reorder(track_name,streams),y=streams, fill=artist.s._name),
+           stat = "identity", show.legend = FALSE)+ scale_fill_brewer(palette = "Set3")+
+  coord_flip()+labs(title = "To 10 Streamed Titles on Spotify in 2023", x="Artists", y="Number of Streams")+ scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()), 
+                                                                                                                                 breaks = seq(0,15e+08,2e+8), limits=c(0,15e+08))
+
+
+```
+
+
+
+
+
+```{r,echo=FALSE, warning=FALSE, include=FALSE}
+
+library(data.table)
+library(ggplot2)
+library(mlbench)
+library(elasticnet)      
+library(mclust) 
+library(tidyr)
+library(viridis)
+library(dplyr)
+library(viridis)
+
+
+ top100<-spoty_2023%>% top_n(100,wt=streams) 
+ top100$streams<-as.numeric(top100$streams)
+ 
+
+subset_t100<-top100[,c(19,20)]
+
+subset_scaled<-as.matrix(scale(subset_t100))
+
+class(subset_scaled)
+ 
+#cluster by mood
+
+ks <- 1:20
+wss <- c()
+for(i in 1:length(ks)){
+  temp <- kmeans(x = subset_scaled, centers = ks[i],nstart = 100) 
+  wss[i] <- sum(temp$tot.withinss)
+}
+
+
+plot(wss, type ="line")
+
+
+set.seed(1234)
+finalk <- kmeans(x = subset_scaled, centers = 4, nstart = 100)
+
+finalk$centers
+
+# Add cluster solution to original data
+top100$cluster <- as.factor(finalk$cluster)
+
+
+
+#Cluster that includes streams
+
+subset_stream<-top100[,c(9,19,20)]
+
+subset_stream<-as.matrix(scale(subset_stream))
+
+
+
+ks <- 1:20
+wss <- c()
+for(i in 1:length(ks)){
+  temp <- kmeans(x = subset_stream, centers = ks[i],nstart = 100) 
+  wss[i] <- sum(temp$tot.withinss)
+}
+
+
+plot(wss, type ="line")
+
+
+set.seed(1234)
+finalk2 <- kmeans(x = subset_stream, centers = 5, nstart = 100)
+
+finalk2$centers
+
+
+
+# Add cluster solution to original data
+top100$cluster2 <- as.factor(finalk2$cluster)
+
+
+
+```
+
+Here the top 100 songs were clustered by their level of energy and valency. Energy is a measure from 0 to 100 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Lo-Fi or Lounge would scores low on the scale. Valence is associated with dynamic range, perceived loudness, timbre, onset rate, and general entropy.A measure from 0 to 100 describes the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
+Songs with lower  valency and lower energy depicted by the yellow  dots can be characterised by being sad and calm. In contrast, the purple dots highlights the songs that  with the opposite mood, these songs are more happy and energetic. Angry and energetic is the mood with the leas songs in top 100.
+```{r,echo=FALSE, warning=FALSE}
+
+
+
+
+# Plot cluster  together with data
+ggplot(top100,aes(x = valence_., y = energy_., color=factor(cluster))) + geom_point(size=3)+scale_colour_brewer(name="Mood",
+                         breaks=c("1", "2", "3", "4"),
+                         labels=c("Happy & Calm", "Sad & Calm", "Happy & Energetic","Angry & Energetic"),palette = "Set3")+labs(title = "Mood of top 100 Streamed Songs on Spotify in 2023",
+                                                                                                                                x= "Valence", y= "Energy")
+
+
+
+```
+
+Here the top 100 are classified by both their mood and number of streams, which I use as a proxy for popularity. Within the top 100 the songs with a happy and clam mood seems to be the most popular. 
+
+```{r, echo=FALSE, warning=FALSE}
+
+
+# Plot cluster  together with data
+ggplot(top100,aes(x = valence_., y = energy_., color=factor(cluster2))) + geom_point(size=3)+scale_colour_brewer(name="Popularity & Mood",
+                         breaks=c("1", "2", "3","4","5"),
+                         labels=c("Unpopular ,Happy & Calm", "Unpopular ,Sad & Calm", "Unpopular,Happy & Energetic","Popular,Happy&Calm",
+                                  "Unpopular,Angry&Energetic"),
+                         palette = "Set2")+labs(title = "Popularity & Mood of top 100 Streamed Songs on Spotify in 2023",x= "Valence", y= "Energy")
+
+  
+```
+
