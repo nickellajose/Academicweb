@@ -100,8 +100,8 @@ ggplot(usa_map)+
 
 ```
 
-This bar plot highlights the top 15 states with the most haunted locations, with 1002 haunted cites.
-California has the highest number of haunted locations . 
+This bar plot highlights the top 15 states with the most haunted locations, with 1002 haunted sites.
+California has the highest number of haunted locations followed by Texas with 637 haunted sites. 
 
 ```{r,echo=FALSE}
 #Top 15 haunted states
@@ -123,6 +123,9 @@ top15%>%
 
 ```
 
+The interactive map below shows the haunted sites for the states with 200 or more haunted locations.
+Each red marker (circle) represents a haunted site in a specific state, when you zoom-in you can see an approximate location in the city in which it is located.
+To read the description of the haunted location  click on the marker.
 
 ```{r,echo=FALSE}
 ## Most haunted regions 
