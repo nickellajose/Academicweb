@@ -51,7 +51,7 @@ by_state<-haunted_places %>%
   summarise(stat_count=n())
 #shp us map
 mg_dat<-merge(haunted_places,by_state)
-usa <-st_read("C:/Users/nicke/Downloads/cb_2022_us_state_500k")
+usa <-st_read("/Users/cb_2022_us_state_500k")
 
 usa2<- usa[c(5,6,10)]
 
