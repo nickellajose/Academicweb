@@ -1,0 +1,150 @@
+---
+title: Haunted Places
+author: ''
+date: '2023-10-11'
+slug: haunted-places
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: [Nickella Jose]
+lastmod: '2023-10-11T14:28:11+02:00'
+featured: no
+draft: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Since we are in the month of Halloween, lets take a look at some of the haunted places in the US and their characteristics.
+```{r, include=FALSE}
+library("tidytuesdayR")
+library(leaflet)
+library(plotly)
+library(tidyr)
+library(dplyr)
+library(tidyverse)
+library(usmap)
+library(ggplot2)
+library(sf)
+library(broom)
+library(sp)
+library(RColorBrewer)
+library(grDevices)
+library(ggthemes)
+library(colorspace)
+library(stringr)
+library(scales)
+library(viridis)
+
+#loading data
+haunted_places<- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-10-10/haunted_places.csv')
+#rm NA
+haunted_places<-na.omit(haunted_places)
+#agg by state and numbe rof haunted places
+by_state<-haunted_places %>% 
+  group_by(state) %>% 
+  summarise(stat_count=n())
+#shp us map
+mg_dat<-merge(haunted_places,by_state)
+usa <-st_read("C:/Users/nicke/Downloads/cb_2022_us_state_500k")
+
+usa2<- usa[c(5,6,10)]
+
+z<- mg_dat %>% group_by(state) %>% 
+   summarise(avg=mean(stat_count))
+
+usa_map<-merge(usa2,z,by.x="NAME", by.y= "state")
+
+usa_map<-usa_map %>% mutate(cat=ifelse(avg<=50,"0-50",
+                                     ifelse(avg<=100,"50-100",
+                                            ifelse(avg<=200,"100-200",
+                                                   ifelse(avg<=300,"200-300","300-1002")))))
+
+usa_map$cat <-factor(usa_map$cat, levels = c("0-50", "50-100", "100-200", "200-300" , "300-1002" ))
+
+
+
+cmap<-diverging_hcl(5,palette="Blue-Red2")
+
+
+
+```
+
+Here the number of haunted locations are aggregated by state.The Western Great Lakes and the Northeastern regions found in eastern USA is home to some of the most haunted states.
+These include Illinois (IL), Michigan (MI),New York (NY) and Ohio (OH).
+
+```{r,echo=FALSE , warning=FALSE}
+
+
+
+
+ggplot(usa_map)+
+  geom_sf(aes(fill=cat,color=cat))+scale_fill_manual(values=c("#4A6FE3", "#9DA8E2" ,"#E2E2E2", "#E495A5", "#D33F6A"))+
+  scale_colour_manual(values=c("gray70" ,"gray70", "gray70", "gray70", "gray70"))+
+  labs(fill="Number of Haunted Locations",color="Number of Haunted Locations")+
+        scale_x_continuous(limits = c(-125, -67))+
+        scale_y_continuous(limits = c(22, 50))+theme_map()+theme(legend.direction = "horizontal")+
+   geom_sf_text(data=usa_map,aes(label=STUSPS),colour="white", size=2)+guides(fill = guide_legend( title.position = "bottom"),colour = guide_legend( title.position = "bottom"), 
+                                                                               title.theme =element_text(size = 10, face = "bold",colour = "gray70",angle = 0))+
+                                                                                ggtitle(label = "Number of Haunted Locations in the USA by State")
+
+
+
+
+
+
+```
+
+This bar plot highlights the top 15 states with the most haunted locations, with 1002 haunted cites.
+California has the highest number of haunted locations . 
+
+```{r,echo=FALSE}
+#Top 15 haunted states
+top15<- by_state %>% top_n(15,wt=stat_count) 
+
+
+top15$state <-as.factor(top15$state)
+
+
+top15%>% 
+  ggplot()+
+  geom_bar(aes(x=reorder(state,-stat_count),y=stat_count, fill=state),stat = "identity", show.legend = FALSE)+ 
+  coord_flip()+labs(title = "Top 15 Most Haunted States in the USA", x="State", y="Number of Haunted Locations")+ scale_y_continuous(breaks = seq(0,1100,100), limits=c(0,1100))+
+  scale_fill_manual(values=c("#8E063B","#023FA5","#023FA5", "#7D87B9" ,"#023FA9", "#7D87B9", "#7D87B9", "#D6BCC0", "#023FA5", "#D6BCC0", "#D6BCC0", "#D6BCC0","#D6BCC0","#023FA5","#023FA9"))
+
+
+
+
+
+```
+
+
+```{r,echo=FALSE}
+## Most haunted regions 
+
+
+#subset data for states whit most haunted locations
+
+most_haunted<- mg_dat %>% filter(stat_count>=200)
+ 
+leaflet() %>% 
+  addTiles()%>% 
+    addScaleBar() %>% 
+  setView(lng = -96.25, lat = 39.50, zoom = 4.4) %>% 
+  addMiniMap() %>% 
+  addCircleMarkers(data = most_haunted,
+                   lng=most_haunted$city_longitude,
+                   lat=most_haunted$city_latitude,
+                   weight = 1,
+                   radius = 5,
+                   color="Red",
+                   popup = ~description)
+
+
+```
+
