@@ -32,7 +32,7 @@ library(scales)
 options(scipen = 999)
 
 
-spoty<-read.csv("C:/Users/nicke/OneDrive/Documents/Website_proj/MyWebsite2/Data_For_Blog/spotify-2023.csv")
+
 
 spotify_songs2020 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv')
 

@@ -1,0 +1,26 @@
+---
+title: Video Game Sales Analysis
+author: Nickella Jose
+date: '2024-01-02'
+slug: video-game-sales-analysis
+categories: 
+ - R
+tags: 
+ - R
+subtitle: ''
+summary: ''
+authors: [Nickella Jose]
+lastmod: '2024-01-02T13:47:31+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+```{r, include=FALSE}
+
+```
+
