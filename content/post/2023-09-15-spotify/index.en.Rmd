@@ -73,8 +73,7 @@ most_streams%>%
   ggplot()+
   geom_bar(aes(x=reorder(track_name,streams),y=streams, fill=artist.s._name),
            stat = "identity", show.legend = FALSE)+ scale_fill_brewer(palette = "Set3")+
-  coord_flip()+labs(title = "Top 10 Streamed Titles on Spotify in 2023", x="Artists", y="Number of Streams")+ scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()), 
-                                                                                                                                 breaks = seq(0,15e+08,2e+8), limits=c(0,15e+08))
+  coord_flip()+labs(title = "Top 10 Streamed Titles on Spotify in 2023", x="Artists", y="Number of Streams")+ scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()), breaks = seq(0,15e+08,2e+8), limits=c(0,15e+08))
 
 
 ```

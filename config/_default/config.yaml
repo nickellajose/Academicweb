@@ -6,7 +6,8 @@ theme: "starter-hugo-academic"
 
 title: Nickella Jose # Website name
 baseURL: 'https://nickellajose.netlify.app' # Website URL
-
+# Disqus configuration
+disqusShortname: nickellajose
 ############################
 ## LANGUAGE
 ############################
@@ -74,3 +75,4 @@ sitemap:
   _merge: deep
 minify:
   _merge: deep
+
