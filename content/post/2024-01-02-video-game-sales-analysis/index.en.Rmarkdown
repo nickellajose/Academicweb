@@ -128,7 +128,7 @@ vg_ys$Location<- factor(vg_ys$Location)
 ```
 
 
-```{r  include=FALSE}
+```{r , include=FALSE}
 ggp<-ggplot(vg_ys,aes( x=Year_of_Release, y=Total_Sales,colour=Location, group=Location))+ geom_line(size = 1)+
 scale_colour_brewer(palette = "Pastel1",labels=c("EU ","Japan","North America","Other"))+
   ylab("Total Sales (Millions)")+ 
@@ -144,7 +144,9 @@ scale_colour_brewer(palette = "Pastel1",labels=c("EU ","Japan","North America","
 ```
 
 
-
+```{r, echo=FALSE}
+ggp
+```
 
 ```{r, include=FALSE}
 
