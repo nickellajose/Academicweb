@@ -159,9 +159,7 @@ vg_yg$Percent<- round(vg_yg$Percent,0)
 
 ```
 
-```{r, echo=FALSE}
-ggp
-```
+
 
 Taking a closer look at the   years 2004-2016  the action genre accounted for the highest proportion of games released among the genres.
 
