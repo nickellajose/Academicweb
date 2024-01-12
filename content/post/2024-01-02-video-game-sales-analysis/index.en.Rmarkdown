@@ -2,7 +2,6 @@
 title: Video Game Sales Analysis
 author: Nickella Jose
 date: '2024-01-02'
-comments: true
 slug: video-game-sales-analysis
 categories: 
  - R
@@ -30,6 +29,7 @@ library(data.table)
 library(janitor)
 library(paletteer)
 library(plotly)
+library(gganimate)
 
 1#Load data
 getwd()
@@ -49,12 +49,7 @@ vg_long<- video_game[,c(2,3,4,5,6,7,8,9,10,11)]%>% pivot_longer(
 
 ```
 
-```{r ,echo=FALSE}
-
-#Sales per region by Genre
-ggplot(vg_long,aes(fill=Location, x=Genre, y=Sales))+ geom_bar(position = "dodge", stat = "identity")+
-scale_fill_brewer(palette = "Pastel1",labels=c("EU ","Japan","North America","Other"))+ ylab("Sales (Millions)")
-
+```{r , include=FALSE}
 
 
 vg_comp <- vg_long %>%
@@ -63,6 +58,20 @@ summarize(Total_Sales = sum(Sales))
 
 
 
+
+
+```
+
+The data used in this analysis includes only games launched between the year 1980-2020.
+
+**What genres were top sellers in the different regions?**
+
+If we look across the regions we notice that action themed games appears to be the most popular. 
+Specifically in North America with approximately eight hundred seventy-eight million and EU with approximately five hundred and eighteen million,
+this genre is uncontested in sales in comparison to the other genres in the same regions. 
+Other genres that are also popular in  EU, Japan (JP) and North America (NA) are Shooter ,role playing and sports.
+
+```{r, echo=FALSE}
 ggplot(data = vg_comp, aes(x = Location, y = Genre, fill = Total_Sales))+
   geom_tile(aes(fill =Total_Sales))+
   geom_text(aes(label = Total_Sales), position = position_dodge(width = .1), color = "black")+
@@ -76,12 +85,12 @@ ggplot(data = vg_comp, aes(x = Location, y = Genre, fill = Total_Sales))+
    scale_x_discrete(labels=c("EU ","Japan","North America","Other"))
 
 
-
 ```
 
+We can see the regional trends reflected in the global trend also , action games had over 1.7 billion sales globally, 
+followed by sports with about 1.3 billion and shooter type games with around 1.1 billion sales worldwide. 
 
-
-```{r}
+```{r,echo=FALSE,warning=FALSE}
 
 #Most sold genre worldwide
 
@@ -95,14 +104,18 @@ ggplot(data = vg_ts, mapping = aes(x = reorder(Genre, -Total_Sales), y = Total_S
   theme_classic() +
   theme(axis.text.x = element_text(angle = 90))+
   theme(legend.position = "None") +
-  labs(title =  "Global Sales by Genre Worldwide",
+  labs(title =  "Global Sales by Genre",
        x = "Genre",
        y = "Sales (Millions)")+
-  scale_fill_brewer(palette = "Set3")
+  scale_fill_brewer(palette = "Set3")+ scale_y_continuous(breaks=seq(0,1800,by=200))
 
 ```
 
-```{r , echo=FALSE}
+
+Other interesting regional trends to look at is the total sales by year of release.
+Games released between 2006-2010 seems to have the highest total sales across regions,with peak sales being games released in 2008. 
+After 2008 in the NA and EU Regions there was a steep decline in total sales of games released after 2008.
+```{r , include=FALSE}
 
 #Sales per region by year of Release
 
@@ -111,12 +124,68 @@ group_by (Year_of_Release,Location) %>%
 summarize(Total_Sales = sum(Sales)) 
 vg_ys$Location<- factor(vg_ys$Location)
 
-ggplot(vg_ys,aes( x=Year_of_Release, y=Total_Sales,colour=Location, group=Location))+ geom_line(size = 1)+
-scale_colour_brewer(palette = "Pastel1",labels=c("EU ","Japan","North America","Other"))+ ylab("Sales (Millions)")+ xlab("Year")+ scale_x_continuous(breaks=seq(1980,2020,by=5))+
-scale_y_continuous(breaks=seq(0,350,by=50))
+
 ```
 
-```{r,echo=FALSE}
+
+```{r, echo=TRUE,warning=FALSE}
+ggplot(vg_ys,aes( x=Year_of_Release, y=Total_Sales,colour=Location, group=Location))+ geom_line(size = 1)+
+scale_colour_brewer(palette = "Pastel1",labels=c("EU ","Japan","North America","Other"))+
+  ylab("Total Sales (Millions)")+ 
+  xlab("Release Year")+
+  scale_x_continuous(breaks=seq(1980,2020,by=4))+
+  scale_y_continuous(breaks=seq(0,350,by=50))+
+  labs(title =  "Total Sales By Year of Release and Region")+
+  scale_fill_brewer(palette = "Set3")+
+  theme(plot.title = element_text(size = 10,hjust = 0.5))+
+  theme_classic()
+
+
+```
+
+```{r, include=FALSE}
+
+#top sales by genre & year
+vg_yg <- vg_long %>% filter(Year_of_Release >= 2004 & Year_of_Release <= 2016) %>% 
+group_by ( Genre,Year_of_Release) %>%
+summarize(Count = n()) %>% 
+  group_by (Year_of_Release) %>%
+  mutate(Percent=(Count/sum(Count))*100)
+vg_yg$Genre<- factor(vg_yg$Genre)
+vg_yg$Percent<- round(vg_yg$Percent,0)
+
+```
+
+Taking a closer look at the   years 2004-2016  the action genre accounted for the highest proportion of games released among the genres.
+
+**NB For Interactive Graphs**
+     *Hover over the graph to get a summary of the figures for each genre*
+     *To view each line individually double click on the lines under "Genre"*
+     *To remove a line from the graph click once on it's corresponding name under "Genre"*
+```{r,echo=FALSE,warning=FALSE, out.width="100%", fig.align='center'}
+
+
+
+bp_yr<-ggplot(vg_yg,aes( x=Year_of_Release, y=Percent,colour=Genre))+ geom_line(size = 1)+
+  geom_point()+
+  ylab("Percent")+ 
+  xlab("Release Year")+
+  labs(title =  "Percentage of Rleases By Genre 2004-2016")+
+  scale_colour_brewer(palette = "Set3")+
+  theme(plot.title = element_text(size = 10,hjust = 0.5))+
+ scale_x_continuous(breaks=seq(2004,2016,by=1))+
+ scale_y_continuous(breaks=seq(0,50,by=5))+
+theme_classic() 
+
+ggplotly(bp_yr,autosize = F, animation_opts=500,width = 700, height = 500, dynamicTicks = TRUE) 
+
+
+
+
+```
+
+
+```{r,echo=FALSE,warning=FALSE}
 
 #top 12 Global Sales by  platform
 vg_plat <- video_game %>%
@@ -137,44 +206,50 @@ ggplot(data = top_12, mapping = aes(x = Total_Sales, y = reorder(Platform, Total
 
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,warning=FALSE}
 #top 12 Global Sales by  publishers
 vg_plub <- video_game %>%
 group_by (Publisher) %>%
 summarize(Total_Sales = sum(Global_Sales)) %>% na.omit()
-top_12<- vg_plat %>% top_n(12,wt=Total_Sales)
+top_12pl<- vg_plub %>% top_n(12,wt=Total_Sales)
 
-ggplot(data = top_12, mapping = aes(x = Total_Sales, y = reorder(Platform, Total_Sales))) +
-  geom_col(mapping = aes(fill = Platform)) +
+ggplot(data = top_12pl, mapping = aes(x = Total_Sales, y = reorder(Publisher, Total_Sales))) +
+  geom_col(mapping = aes(fill = Publisher)) +
   theme_classic() +
   theme(legend.position = "None") +
-  labs(title =  "Top 12 Gaming Platforms by Total Global Sales",
+  labs(title =  "Top 12 Gaming Publishers by Total Global Sales",
        x = "Global Sales (Millions)",
        y = NULL)+
-  scale_fill_brewer(palette = "Set3")+ scale_x_continuous(breaks=seq(0,1300,by=100))
+  scale_fill_brewer(palette = "Set3")+ scale_x_continuous(breaks=seq(0,2000,by=200))
 ```
 
 
-```{r, echo=FALSE}
+```{r, include=FALSE}
 
 
 #top 12 Global Sales by  title
 vg_name <-vg_long %>% filter(Year_of_Release %in% 2015:2020 ) %>% 
 group_by (Name, Genre,Publisher ) %>%
 summarize(Total_Sales = sum(Global_Sales)) %>% na.omit()%>% filter(Total_Sales>13)
+vg_name$Name <- reorder(vg_name$Name , vg_name$Total_Sales)
 
 
+```
 
 
-gname<-ggplot(data = vg_name, mapping = aes(x = Total_Sales, y = reorder(Name, Total_Sales))) +
-  geom_col(mapping = aes(fill = Genre)) +
-  labs(title =  "Top 30 Games Released between (2015-2020) by Global Sales ",
+```{r,echo=FALSE,warning=FALSE}
+gname<-ggplot(data = vg_name, mapping = aes(x = Total_Sales, y = Name)) +
+  geom_col(mapping = aes(fill = Genre, text = paste("Publisher:", Publisher))) +
+  labs(title =  "Top 30 Game Released Between (2015-2020)",
        x = "Global Sales (Millions)",
-       y = "Game Title")+
-  scale_fill_brewer(palette = "Set3")
+       y = "")+
+  scale_fill_brewer(palette = "Set3")+ scale_x_continuous(breaks=seq(0,110,by=10))+
+  theme(plot.title = element_text(size = 8,hjust = 0.5))+
+  theme_classic()
 
 
-ggplotly(gname, text="Name")
+ggplotly(gname,autosize = F, width = 700, height = 450)
+
 
 ```
 
