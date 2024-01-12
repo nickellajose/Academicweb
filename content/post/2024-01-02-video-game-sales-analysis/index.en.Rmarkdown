@@ -2,7 +2,8 @@
 title: Video Game Sales Analysis
 author: Nickella Jose
 date: '2024-01-02'
-comments: true
+comments:
+  shortname: "nickellajose"
 slug: video-game-sales-analysis
 categories: 
  - R
