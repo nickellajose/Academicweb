@@ -143,7 +143,6 @@ scale_colour_brewer(palette = "Pastel1",labels=c("EU ","Japan","North America","
 
 ```
 
-
 ```{r, echo=FALSE}
 ggp
 ```
