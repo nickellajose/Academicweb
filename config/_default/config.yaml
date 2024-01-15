@@ -76,3 +76,7 @@ sitemap:
 minify:
   _merge: deep
 
+params:
+  comments:
+    provider: disqus
+    disqusShortname: nickellajose
