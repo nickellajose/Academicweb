@@ -113,7 +113,7 @@ ggplot(data = vg_ts, mapping = aes(x = reorder(Genre, -Total_Sales), y = Total_S
 ```
 
 
-Other interesting regional trends to look at is the total sales by year of release.
+Another interesting regional trend to look at is the total sales by year of release.
 Games released between 2006-2010 seems to have the highest total sales across regions,with peak sales being games released in 2008. 
 After 2008 in the NA and EU Regions there was a steep decline in total sales of games released after 2008.
 ```{r , include=FALSE}
@@ -192,8 +192,7 @@ ggplotly(bp_yr,autosize = F, animation_opts=500,width = 700, height = 500, dynam
 
 
 ```
-
-
+Now we move to examining sales by platform,and publishers. Games made for PlayStation had the highest Global sales. Games made for PlayStation and Xbox have the highets global sales.   
 ```{r,echo=FALSE,warning=FALSE}
 
 #top 12 Global Sales by  platform
@@ -215,6 +214,7 @@ ggplot(data = top_12, mapping = aes(x = Total_Sales, y = reorder(Platform, Total
 
 ```
 
+The top publishers are Nintendo , EA and  Activation , this makes sense since  games from theses publishers such as COD, FIFA, Pokemon and Battlefield are among the top selling games titles as shown in the next chart.
 ```{r,echo=FALSE,warning=FALSE}
 #top 12 Global Sales by  publishers
 vg_plub <- video_game %>%
@@ -244,7 +244,7 @@ vg_name$Name <- reorder(vg_name$Name , vg_name$Total_Sales)
 
 
 ```
-
+COD 3 has seen the highest overall global sale, within the same shooter genre Battlefront has the second highest sale. Among the top 30 selling games the shooter genre seems to be the most prevelent. 
 
 ```{r,echo=FALSE,warning=FALSE}
 gname<-ggplot(data = vg_name, mapping = aes(x = Total_Sales, y = Name)) +
