@@ -2,6 +2,7 @@
 title: Spotify
 author: Nickella Jose
 date: '2023-09-15'
+disqus: true
 slug: spotify
 categories:
   - R
