@@ -130,7 +130,7 @@ vg_ys$Location<- factor(vg_ys$Location)
 
 
 ```{r , include=FALSE}
-ggp<-ggplot(vg_ys,aes( x=Year_of_Release, y=Total_Sales,colour=Location, group=Location))+ geom_line(size = 1)+
+ggp<-ggplot(vg_ys,aes( x=Year_of_Release, y=Total_Sales,colour=Location, group=Location))+ geom_line(size = 0.5)+
 scale_colour_brewer(palette = "Pastel1",labels=c("EU ","Japan","North America","Other"))+
   ylab("Total Sales (Millions)")+ 
   xlab("Release Year")+
@@ -175,8 +175,8 @@ Taking a closer look at the   years 2004-2016  the action genre accounted for th
 
 
 
-bp_yr<-ggplot(vg_yg,aes( x=Year_of_Release, y=Percent,colour=Genre))+ geom_line(size = 1)+
-  geom_point()+
+bp_yr<-ggplot(vg_yg,aes( x=Year_of_Release, y=Percent,colour=Genre))+ geom_line(size = 0.3)+
+  geom_point(size = 0.6)+
   ylab("Percent")+ 
   xlab("Release Year")+
   labs(title =  "Percentage of Rleases By Genre 2004-2016")+
@@ -261,6 +261,10 @@ ggplotly(gname,autosize = F, width = 700, height = 450)
 
 
 ```
+
+
+
+
 
 <div id="disqus_thread"></div>
 <script>
