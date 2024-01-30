@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ site.LanguageCode | default "en-us" }}">
 <head>
+{{ if .Site.Params.GoogleAnalyticsID }}
+  {{ partial "analytics-gtag.html" . }}
+  {{ end }}
 
   {{/* Asset versions */}}
   {{ $cdn_url_reveal := "https://cdn.jsdelivr.net/npm/reveal.js@4.5.0" }}
