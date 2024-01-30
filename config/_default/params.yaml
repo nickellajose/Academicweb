@@ -23,7 +23,7 @@ marketing:
   analytics:
     google_analytics: 'G-VTMQJ34NEZ'
     baidu_tongji: ''
-    google_tag_manager: ''
+    google_tag_manager: 'G-VTMQJ34NEZ'
     microsoft_clarity: ''  
   verification:
     google: ''
